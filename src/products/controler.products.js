@@ -3,9 +3,24 @@ const Products = require("../models/products.models");
 
 const router = Router();
 
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const products = await Products.paginate();
+    const products = await Products.find()
+    res.json({mesagge: products})
+  } catch (error) {
+    res.status(500).json({ status: 'error', error: error.message })
+  }
+})
+router.post("/", async (req, res) => {
+  try {
+    const { title, price, stock } = req.body;
+    const newProduct = {
+      title,
+      price,
+      stock,
+    };
+
+    const products = await Products.create(newProduct);
     res.json({ message: products });
   } catch (error) {
     res.status(500).json({ status: "error", error: error.message });

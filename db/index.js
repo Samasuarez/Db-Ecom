@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 // const {dbAdmin, dbPassword,dbHost } = require('../src/config/db.config')s
+
 const mongoConect = async () => {
   try {
     await mongoose.connect(
@@ -11,4 +12,4 @@ const mongoConect = async () => {
   }
 };
 module.exports = mongoConect;
-// mongodb+srv://paknais01:<password>@cluster0.u2zhjog.mongodb.net/?retryWrites=true&w=majority
+

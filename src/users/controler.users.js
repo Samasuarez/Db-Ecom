@@ -1,61 +1,26 @@
 const { Router } = require("express");
+const Users = require("../models/users.models");
 
 const router = Router();
 
-router.get("/", auth, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
-    if (req.session.counter) {
-      req.session.counter++;
-      return res.json({
-        message: `${req.session.name} has visitado ${req.session.counter} veces`,
-      });
-    }
+    const { first_name, last_name, email, age, password } = req.body;
+    const newUserInfo = {
+      first_name,
+      last_name,
+      email,
+      age,
+      password,
+    };
 
-    req.session.counter = 1;
-    req.session.name = "Mati";
-    req.session.team = "Rosario Central";
+    const user = await Users.create(newUserInfo);
 
-    res.json({
-      message: `Bienvenido ${req.session.name} al counter, tú que eres de ${req.session.team}`,
-    });
+    res.status(201).json({ status: "success", message: user });
   } catch (error) {
-    res.status(500).json({ status: "error", error: error.message });
+    console.log(error.message);
+    res.status(500).json({ status: "error", error: "Internal server error" });
   }
 });
-
-router.get("/login", (req, res) => {
-  const { username, password } = req.query;
-
-  if (username !== "mate" || password !== "mate123") {
-    console.log(req.session);
-    return res.json({ error: "Datos invalidos" });
-  }
-
-  req.session.name = username;
-  req.session.role = "superadmin";
-
-  console.log(req.session);
-
-  res.json({ message: "Sesión iniciada" });
-});
-
-router.get("/delete", (req, res) => {
-  req.session.destroy((error) => {
-    if (error) return res.json({ error });
-    res.json({ message: "Sesión finalizada" });
-  });
-});
-
-function auth(req, res, next) {
-  console.log("Inicia middleware de autenticación");
-  console.log(req.session.name);
-  console.log(req.session.role);
-  console.log("FInaliza middleware de autenticación");
-  if (req.session.name === "mate" && req.session.role === "superadmin") {
-    return next();
-  }
-
-  return res.json({ error: "No es una sesión valida" });
-}
 
 module.exports = router;

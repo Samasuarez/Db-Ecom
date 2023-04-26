@@ -1,9 +1,14 @@
-const sessionController = require('../users/controler.users')
-const productsController = require('../products/controler.products')
+// const sessionController = require('../users/controler.users')
+const authController = require('../auth/controler.auth')
+// const productsController = require('../products/controler.products')
+const usersController = require('../users/controler.users')                                                   
+const viewsTemplateController = require('../viewsTemplate/controller.viewsTemplate')
 
 const router = app => {
-  app.use('/session', sessionController)
-  app.use('/products', productsController)
+  app.use('/', viewsTemplateController)
+  app.use('/auth', authController)
+  app.use('/users', usersController)
+//   app.use('/users', usersController)
 }
 
 module.exports = router
