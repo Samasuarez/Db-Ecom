@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const collectionName = 'user'
+const collectionName = "user";
 
 const collectionSchema = new mongoose.Schema({
   first_name: String,
@@ -11,8 +11,8 @@ const collectionSchema = new mongoose.Schema({
   },
   age: Number,
   password: String,
-})
+});
 
-const Users = mongoose.model(collectionName, collectionSchema)
+const Users = mongoose.model(collectionName, collectionSchema);
 
-module.exports = Users
+module.exports = Users;

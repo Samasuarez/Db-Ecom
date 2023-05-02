@@ -1,7 +1,16 @@
 const { Router } = require("express");
-const Users = require("../models/users.models");
+const Users = require("../models/users.models.js");
 
 const router = Router();
+
+router.get("/", async (req, res) => {
+  try {
+    const users = await Users.find();
+    res.json({ mesage: users });
+  } catch (error) {
+    res.status(400).json({error});
+  }
+});
 
 router.post("/", async (req, res) => {
   try {

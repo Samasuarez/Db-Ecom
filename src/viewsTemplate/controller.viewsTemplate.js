@@ -2,7 +2,7 @@ const { Router } = require("express");
 const privateAccess = require("../middleware/private.acces.middleware");
 const publicAccess = require("../middleware/public.acces.middleware");
 
-const router = Router();
+const router = Router();0
 
 router.get("/", privateAccess, (req, res) => {
   const { user } = req.session;
