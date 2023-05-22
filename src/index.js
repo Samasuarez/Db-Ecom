@@ -1,9 +1,10 @@
 const express = require('express')
+
 const handlebars = require('express-handlebars')
-const session = require('express-session')
+// const session = require('express-session')
 const router = require('./router')
 const mongoConnect = require('../db')
-const { port } = require('./config/products.config')
+const { port } = require('./config/app.config')
 
 const app = express()
 
